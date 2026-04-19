@@ -1,0 +1,38 @@
+[
+  {
+    "id": "LO1",
+    "course": "Computer Networks",
+    "text": "Öğrenci IPv4 alt ağlama işlemlerini yapabilir.",
+    "cognitive_level": "apply",
+    "topic": "IPv4 Alt Ağlama"
+  },
+  {
+    "id": "LO2",
+    "course": "Computer Networks",
+    "text": "Öğrenci yönlendirme ve anahtarlama kavramlarını ayırt edebilir.",
+    "cognitive_level": "understand",
+    "topic": "Yönlendirme ve Anahtarlama"
+  },
+  {
+    "id": "LO3",
+    "course": "Computer Networks",
+    "text": "Öğrenci DHCP sürecini açıklayabilir.",
+    "cognitive_level": "understand",
+    "topic": "DHCP"
+  },
+  {
+    "id": "LO4",
+    "course": "Computer Networks",
+    "text": "Öğrenci NAT kullanım senaryolarını analiz edebilir.",
+    "cognitive_level": "analyze",
+    "topic": "NAT"
+  },
+  {
+    "id": "LO5",
+    "course": "Computer Networks",
+    "text": "Öğrenci temel ağ topolojilerini yorumlayabilir.",
+    "cognitive_level": "analyze",
+    "topic": "Ağ Topolojileri"
+  }
+]
+

@@ -1,0 +1,18 @@
+Yönlendirme ve Anahtarlama
+
+Anahtarlama, aynı yerel ağ içindeki cihazların MAC adreslerine göre haberleşmesini sağlar. Switch cihazları veri bağlantı katmanında çalışır ve MAC adres tablosu oluşturarak çerçeveleri doğru porta iletir. Anahtarlama yerel ağ trafiğini verimli hale getirir.
+
+Yönlendirme, farklı ağlar arasındaki paket iletimidir. Router cihazları ağ katmanında çalışır ve IP adreslerine göre karar verir. Router, yönlendirme tablosundaki en uygun rotayı seçerek paketi bir sonraki ağa gönderir. Bu nedenle anahtarlama yerel ağ içi iletişimle, yönlendirme ise ağlar arası iletişimle ilişkilidir.
+
+DHCP Süreci
+
+DHCP, istemcilere otomatik IP yapılandırması sağlayan bir protokoldür. Temel süreç DORA olarak özetlenir: Discover, Offer, Request ve Acknowledge. İstemci önce DHCP Discover mesajı yayınlar. DHCP sunucusu uygun IP bilgilerini DHCP Offer mesajıyla önerir. İstemci DHCP Request ile teklifi kabul eder. Sunucu DHCP Acknowledge ile adres kiralamasını onaylar.
+
+DHCP ile istemci yalnızca IP adresi değil, alt ağ maskesi, varsayılan ağ geçidi ve DNS sunucusu gibi bilgileri de alabilir. Bu, özellikle çok sayıda istemcinin bulunduğu ağlarda elle yapılandırma hatalarını azaltır.
+
+NAT Kullanım Senaryoları
+
+NAT, özel IP adresleri kullanan yerel ağ cihazlarının genel internete tek veya sınırlı sayıda genel IP adresi üzerinden çıkmasını sağlar. Ev ve küçük ofis ağlarında en yaygın kullanım PAT ya da NAT overload biçimidir. Bu yöntemde farklı iç istemciler port numaraları kullanılarak aynı genel IP adresini paylaşabilir.
+
+NAT, IPv4 adres tasarrufu sağlar ve iç ağ adreslerini doğrudan internete göstermediği için temel bir gizleme etkisi oluşturur. Ancak uçtan uca bağlantı gerektiren bazı uygulamalarda ek yapılandırma, port yönlendirme veya NAT traversal teknikleri gerekebilir.
+

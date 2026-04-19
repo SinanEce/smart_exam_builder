@@ -1,0 +1,2 @@
+"""SmartExam Builder application package."""
+
