@@ -1,22 +1,22 @@
 # SmartExam Builder
 
-SmartExam Builder is a demo-ready FastAPI system for AI-powered exam generation and grading in the Computer Networks domain. It generates Turkish questions from learning outcomes, retrieves relevant course material with a local RAG pipeline, improves output through an explicit Writer-Critic workflow, creates rubrics, and grades student answers.
+SmartExam Builder, Bilgisayar Ağları alanında yapay zekâ destekli sınav üretimi ve değerlendirmesi için geliştirilmiş, demoya hazır bir FastAPI sistemidir. Öğrenme kazanımlarından hareketle Türkçe sorular üretir, yerel bir RAG hattı ile ilgili ders içeriklerini getirir, açık bir Writer-Critic iş akışı ile çıktıyı iyileştirir, rubrik oluşturur ve öğrenci cevaplarını değerlendirir.
 
-The app runs out of the box with a deterministic mock LLM so demos and tests do not require network access. To use OpenAI for real LLM calls, set `SMARTEXAM_USE_MOCK_LLM=false` and provide `OPENAI_API_KEY`.
+Uygulama, ağ erişimi gerektirmeyen deterministik bir mock LLM ile kutudan çıktığı gibi çalışır. Gerçek OpenAI çağrıları kullanmak için `SMARTEXAM_USE_MOCK_LLM=false` ayarlanmalı ve `OPENAI_API_KEY` tanımlanmalıdır.
 
 ## Features
 
-- Material ingestion from local folders or uploaded `.txt`, `.md`, and `.pdf` files
-- Text extraction, chunking, metadata creation, embeddings, and FAISS indexing
-- Learning outcome models for course, topic, id, text, and cognitive level
-- Turkish multiple-choice and open-ended question generation
-- Visible RAG response traces with retrieved chunk ids, source files, page numbers, scores, and previews
-- Writer-Critic multi-agent workflow with revision loop
-- Rubric generation for open-ended questions
-- Automatic rubric-based grading with criterion-level feedback in Turkish
-- Pydantic validation for structured LLM outputs
-- Mockable LLM abstraction with retry and JSON repair logic for OpenAI responses
-- Pytest coverage for schemas, chunking, retrieval, pipelines, and API smoke tests
+- Yerel klasörlerden veya yüklenen `.txt`, `.md` ve `.pdf` dosyalarından materyal alma
+- Metin çıkarma, chunking, metadata oluşturma, embedding üretme ve FAISS ile indeksleme
+- Ders, konu, kimlik, metin ve bilişsel seviye alanlarını içeren öğrenme kazanımı modelleri
+- Türkçe çoktan seçmeli ve açık uçlu soru üretimi
+- Chunk kimlikleri, kaynak dosyalar, sayfa numaraları, benzerlik skorları ve önizlemeleri içeren görünür RAG izleri
+- Revizyon döngüsüne sahip Writer-Critic çok ajanlı iş akışı
+- Açık uçlu sorular için rubrik üretimi
+- Rubriğe dayalı, ölçüt bazlı geri bildirim içeren otomatik değerlendirme
+- Yapılandırılmış LLM çıktıları için Pydantic doğrulaması
+- OpenAI yanıtları için yeniden deneme ve JSON onarma mantığı içeren, mock destekli LLM soyutlama katmanı
+- Şemalar, chunking, retrieval, işlem hatları ve API smoke testleri için Pytest kapsamı
 
 ## Folder Structure
 
