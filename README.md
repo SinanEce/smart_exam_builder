@@ -84,11 +84,11 @@ curl -X POST http://127.0.0.1:8000/generate-questions ^
   -d "{\"learning_outcome_id\":\"LO1\",\"course\":\"Computer Networks\",\"difficulty\":\"medium\",\"question_type\":\"multiple_choice\",\"question_count\":2,\"top_k\":4}"
 ```
 
-The response includes:
+Bu isteğin cevabında şunlar yer alır:
 
-- `retrieved_chunks`: chunk id, source file, page number, chunk index, score, and preview text
-- `questions[].source_chunks`: ids of chunks that influenced each question
-- `writer_critic_trace`: Retriever, Writer, and Critic steps for presentation
+retrieved_chunks: chunk kimliği, kaynak dosya, sayfa numarası, chunk sırası, skor ve önizleme metni
+questions[].source_chunks: her soruyu etkileyen chunk kimlikleri
+writer_critic_trace: sunumda gösterilebilecek Retriever, Writer ve Critic adımları
 
 3. Generate an open-ended question, then use it to generate a rubric:
 
@@ -98,7 +98,7 @@ curl -X POST http://127.0.0.1:8000/generate-questions ^
   -d "{\"learning_outcome_id\":\"LO3\",\"question_type\":\"open_ended\",\"question_count\":1,\"top_k\":4}"
 ```
 
-Send the returned question object to:
+Dönen soru nesnesini şu endpoint’e gönder:
 
 ```text
 POST /generate-rubric
@@ -118,7 +118,7 @@ with the returned question, generated rubric, and `student_answer`.
 python scripts/demo_cli.py
 ```
 
-This ingests the sample materials, generates an open-ended DHCP question, creates a rubric, and grades a sample answer.
+Bu komut örnek materyalleri içeri aktarır, açık uçlu bir DHCP sorusu üretir, rubrik oluşturur ve örnek bir cevabı değerlendirir.
 
 ## Using OpenAI
 
@@ -130,30 +130,29 @@ OPENAI_API_KEY=your_api_key_here
 SMARTEXAM_OPENAI_MODEL=gpt-4o-mini
 ```
 
-All LLM calls go through `app/core/llm_client.py`, which validates responses with Pydantic. If the model returns invalid JSON, the client extracts/repairs JSON and retries.
+Tüm LLM çağrıları app/core/llm_client.py üzerinden yapılır ve yanıtlar Pydantic ile doğrulanır. Model geçersiz JSON döndürürse istemci JSON’u ayıklamaya/onarmaya çalışır ve isteği yeniden dener.
 
 ## Writer-Critic Flow
 
-`QuestionService` coordinates the workflow:
+QuestionService, aşağıdaki iş akışını koordine eder:
 
-1. `RetrieverAgent` builds a query from the learning outcome and retrieves top-k source chunks.
-2. `WriterAgent` drafts structured Turkish questions using the learning outcome and retrieved chunks.
-3. `CriticAgent` checks alignment, clarity, answerability, difficulty, ambiguity, and distractor quality.
-4. If rejected, `WriterAgent` revises once or twice using critic feedback.
-5. The final response includes `writer_critic_trace` for easy explanation.
+RetrieverAgent, öğrenme kazanımından bir sorgu oluşturur ve en ilgili kaynak chunk’ları getirir.
+WriterAgent, öğrenme kazanımı ve getirilen chunk’lara dayanarak yapılandırılmış Türkçe sorular üretir.
+CriticAgent, soru ile kazanım uyumu, açıklık, cevaplanabilirlik, zorluk seviyesi, belirsizlik ve distractor kalitesini kontrol eder.
+Soru reddedilirse WriterAgent, Critic geri bildirimine göre bir veya iki kez revizyon yapar.
+Nihai cevap, kolay açıklanabilmesi için writer_critic_trace alanını içerir.
 
 ## RAG Implementation
 
-The local RAG pipeline is intentionally simple:
+Yerel RAG hattı bilinçli olarak sade tutulmuştur:
 
-- `loaders.py` extracts text from `.txt`, `.md`, and `.pdf`
-- `text_chunker.py` creates retrieval-friendly chunks with metadata
-- `embeddings.py` creates deterministic local embeddings
-- `vector_store.py` stores vectors in FAISS when available, with a numpy fallback
-- `retrieval.py` builds learning-outcome-aware queries
+loaders.py: .txt, .md ve .pdf dosyalarından metin çıkarır
+text_chunker.py: metadata ile birlikte retrieval’a uygun chunk’lar üretir
+embeddings.py: deterministik yerel embedding üretir
+vector_store.py: mümkünse FAISS, değilse NumPy tabanlı yedek çözüm kullanır
+retrieval.py: öğrenme kazanımına duyarlı sorgular oluşturur
 
-FAISS metadata is persisted under `data/processed/`. The generated question response exposes retrieved chunks so RAG behavior is visible during demos.
-
+FAISS metadata verileri data/processed/ altında saklanır. Üretilen soru yanıtında getirilen chunk’lar açıkça gösterilir; böylece demo sırasında RAG davranışı görünür olur.
 ## Tests
 
 ```bash
